@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+@theme {
+  --color-neutral-50: #f9fafb;
+  --color-neutral-100: #f3f4f6;
+  --color-neutral-200: #e5e7eb;
+  --color-neutral-400: #9ca3af;
+  --color-neutral-500: #6b7280;
+  --color-neutral-600: #4b5563;
+  --color-neutral-800: #1f2937;
+  --color-neutral-900: #111827;
+}
+
+@layer base {
+  body {
+    @apply bg-[#0a0a0a] text-white antialiased min-h-screen;
+  }
+}
+
+@layer utilities {
+  .divider-y > :not([hidden]) ~ :not([hidden]) {
+    @apply border-t border-neutral-800;
+  }
+}
