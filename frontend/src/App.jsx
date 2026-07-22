@@ -11,7 +11,8 @@ function App() {
       </main>
       
       <footer className="fixed bottom-0 w-full py-6 text-center text-sm text-neutral-600 border-t border-neutral-900 bg-[#0a0a0a]">
-        <p>Alex Xu System Design Architecture Implementation.</p>
+        <p>With Well Designed Backend</p>
+        <p> - Sai Sriram Dodda</p>
       </footer>
     </div>
   );

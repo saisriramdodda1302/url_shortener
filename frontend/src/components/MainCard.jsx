@@ -45,7 +45,7 @@ export default function MainCard() {
                     Minimalist <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-200 to-gray-500">Link Shortener</span>
                 </h1>
                 <p className="text-neutral-400 max-w-xl mx-auto">
-                    Fast and reliable.
+                    Fast as well as Reliable
                 </p>
             </div>
 

@@ -10,7 +10,7 @@ export default function Navbar() {
                         <div className="bg-white p-1.5 rounded-lg">
                             <Link2 className="w-5 h-5 text-black" />
                         </div>
-                        <span className="font-bold text-xl tracking-tight text-white">URL.short</span>
+                        <span className="font-bold text-xl tracking-tight text-white">url-shortener</span>
                     </div>
                     <div className="flex items-center gap-4">
                         <a 
