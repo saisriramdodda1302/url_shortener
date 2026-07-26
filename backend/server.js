@@ -20,10 +20,10 @@ app.use(express.json());
 //instance sleeping. MUST be declared before the /:shortKey catch-all.
 app.get('/health', async (req, res) => {
     try {
-        await pool.query('SELECT 1');
-        res.status(200).json({ status: 'ok', db: 'up' });
+        await redisClient.set('keepalive', Date.now().toString());
+        res.status(200).json({ status: 'ok' });
     } catch (err) {
-        res.status(503).json({ status: 'degraded', db: 'down' });
+        res.status(503).json({ status: 'degraded' });
     }
 });
 
