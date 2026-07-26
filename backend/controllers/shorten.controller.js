@@ -16,7 +16,7 @@ export const shortenUrl = async (req, res) => {
 
         //2:system des unique ID generation.
         const uniqueId = generateId();//snowflake algo.
-        const shortKey = encodeBase62(uniqueId).slice(0, 7);
+        const shortKey = encodeBase62(uniqueId).slice(-7);
 
         //3:pg database write.
         await pool.query(
