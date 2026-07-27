@@ -4,6 +4,7 @@ import { pool } from './config/db.js';
 import { shortenUrl } from './controllers/shorten.controller.js';
 import { handleRedirect } from './controllers/redirect.controller.js';
 import { apiLimiter } from './middleware/rateLimiter.js';
+import { redisClient } from './config/redis.js';   // ← ADD THIS
 
 const app = express();
 const PORT = process.env.PORT || 5000;

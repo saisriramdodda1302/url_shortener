@@ -23,7 +23,9 @@ export const pool = new Pool(
       }
 );
 
-pool.on('error', (err, client) => {
-  console.error('Unexpected error on idle client', err);
-  process.exit(-1);
+//an idle-client error is recoverable — pg discards that client and hands out a
+//fresh one.Neon scales to zero after 5 min idle and drops connections when it
+//does, so exiting here means the service restarts every few minutes.
+pool.on('error', (err) => {
+  console.error('Unexpected error on idle client', err.message);
 });
