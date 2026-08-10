@@ -8,6 +8,10 @@ dotenv.config();
 //TLS. local docker-compose gives us discrete vars and no TLS. So supporting both.
 const connectionString = process.env.DATABASE_URL;
 
+
+//connectionString
+//    ? { /* Configuration A:cloud */ }
+//    : { /* Configuration B: local Dev */ }
 export const pool = new Pool(
   connectionString
     ? {
@@ -22,10 +26,12 @@ export const pool = new Pool(
         port: process.env.DB_PORT || 5432,
       }
 );
+pool.on('error', (err) => {
+  console.error('Unexpected error on idle client', err.message);
+});
 
 //an idle-client error is recoverable — pg discards that client and hands out a
 //fresh one.Neon scales to zero after 5 min idle and drops connections when it
 //does, so exiting here means the service restarts every few minutes.
-pool.on('error', (err) => {
-  console.error('Unexpected error on idle client', err.message);
-});
+
+//ssl: { rejectUnauthorized: false }: Cloud databases require TLS/SSL encryption to protect data over the internet. Setting rejectUnauthorized: false tells the code to accept the cloud provider's certificate even if it cannot verify it against a local chain.
