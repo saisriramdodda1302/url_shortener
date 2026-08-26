@@ -25,7 +25,7 @@ export const shortenUrl = async (req, res) => {
         );
 
         //4:backfilling Redis to take adv of the cache instantly.
-        await redisClient.set(shortKey, longUrl);
+        try { await redisClient.set(shortKey, longUrl); } catch (e) { console.error('cache warm failed:', e.message); }
 
         return res.status(201).json({ shortKey });
     } catch (err) {

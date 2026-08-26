@@ -17,17 +17,21 @@ app.set('trust proxy', 1);
 app.use(cors());
 app.use(express.json());
 
-//health check: used by Render, and by the uptime pinger that stops the free
-//instance sleeping. MUST be declared before the /:shortKey catch-all.
-app.get('/health', async (req, res) => {
+//health check: used by Render.
+app.get('/health', (req, res) => {
+    res.status(200).json({ status: 'ok' });
+});
+// cron-job.org hits this every 10 minutes — 4,320 calls/month.
+// The SET is what stops Upstash archiving the DB after 30 days idle;
+// PING doesn't count as activity, only real data operations do.
+app.get('/keepalive', async (req, res) => {
     try {
         await redisClient.set('keepalive', Date.now().toString());
-        res.status(200).json({ status: 'ok' });
+        res.status(200).json({ status: 'ok', redis: 'up' });
     } catch (err) {
-        res.status(503).json({ status: 'degraded' });
+        res.status(200).json({ status: 'ok', redis: 'down' });
     }
 });
-
 //write Path with Rate Limiting
 app.post('/api/v1/shorten', apiLimiter, shortenUrl);
 
